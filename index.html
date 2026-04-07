@@ -2,161 +2,287 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <title>個人佳牌冰箱布丁部落格 - ✧*｡٩(ˊᗜˋ*)و✧*｡</title>
+    <title>個人佳牌冰箱布丁部落格 - (๑˃ᴗ˂)ﻭ</title>
     <script src="https://unpkg.com/cursor-effects@latest/dist/browser.js"></script>
-    <script src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.77,npm/@magenta/music@1.23.1/es6/core.js"></script>
-
+    
     <style>
+        /* Y2K 核心排版與字體 */
         body {
             font-family: "MS PGothic", "PMingLiU", "新細明體", serif;
-            background-color: #000080;
+            background-color: #000000;
+            /* 背景平鋪：你提供的藍色星空圖 */
             background-image: url('https://file.garden/ZWlUCY4S7Xz2vypS/archived%20backgrounds/colours/blue/0000201-tile.jpg');
             background-repeat: repeat;
-            color: #00FF00;
+            color: #00FF00; 
             margin: 0; padding: 0;
             cursor: crosshair;
+            overflow-x: hidden;
         }
 
-        /* 5. 日本網站風格的 Pink Banner Title */
+        /* 5. 日式 Pink Banner Title */
         .pink-banner {
             background-color: #FF69B4;
             color: #FFFFFF;
-            padding: 15px;
+            padding: 10px;
             text-align: center;
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 900;
             border-bottom: 5px double #FFFFFF;
-            box-shadow: 0px 5px 0px #C71585;
+            box-shadow: 0px 4px 0px #C71585;
             text-shadow: 2px 2px 0px #000;
-            margin-bottom: 10px;
+            cursor: help;
         }
 
+        /* 標題跑馬燈樣式 */
+        .marquee-header {
+            background-color: #FF00FF;
+            color: #FFFF00;
+            border-bottom: 5px solid #00FFFF;
+            padding: 5px 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        /* 主體佈局 */
         .wrapper {
-            display: table; width: 100%; max-width: 1000px;
-            margin: 0 auto; background-color: rgba(0, 0, 0, 0.8);
-            border: 5px ridge #FF00FF;
+            display: table;
+            width: 100%;
+            max-width: 1100px;
+            margin: 10px auto;
+            background-color: rgba(0, 0, 0, 0.9);
+            border: 8px ridge #FF0000;
         }
 
+        /* 左邊側邊欄 */
         .sidebar {
-            display: table-cell; width: 200px; padding: 15px;
-            vertical-align: top; border-right: 3px dashed #FFFF00;
+            display: table-cell;
+            width: 220px;
+            padding: 10px;
+            vertical-align: top;
+            background-color: #000080;
+            border-right: 5px dashed #FFFF00;
+            text-align: center;
         }
 
+        /* 側邊欄連結區塊 */
+        .link-box {
+            margin-top: 15px;
+            padding: 8px;
+            border: 2px dotted #00FF00;
+            background-color: #000;
+            text-align: left;
+            font-size: 13px;
+        }
+        .link-box a { color: #00FFFF; text-decoration: none; }
+        .link-box a:hover { background: #FF00FF; color: #fff; }
+
+        /* 主要內容區 */
         .main-content {
-            display: table-cell; padding: 20px; vertical-align: top;
+            display: table-cell;
+            padding: 15px;
+            line-height: 1.3;
+            vertical-align: top;
+        }
+
+        h2 {
+            color: #FF00FF;
+            text-decoration: underline;
+            background: #222;
+            padding: 5px;
+            border: 1px dotted #00FF00;
+            font-size: 18px;
+        }
+
+        .recipe-block {
+            border: 3px double #00FFFF;
+            padding: 10px;
+            margin-bottom: 20px;
+            background: #111;
+        }
+
+        .recipe-block img {
+            float: right;
+            margin-left: 10px;
+            border: 2px solid #FFFF00;
+        }
+
+        /* 紅色禁止轉載文字 */
+        .no-copy {
+            color: #FF0000;
+            font-weight: bold;
+            background: #fff;
+            padding: 5px;
+            display: inline-block;
+            margin: 10px 0;
         }
 
         /* 留言板樣式 */
         .bbs-section {
-            margin-top: 50px;
-            border: 2px solid #00FFFF;
-            background: #222;
+            margin-top: 30px;
+            border: 3px inset #FF69B4;
+            background: #000;
             padding: 15px;
         }
         .bbs-input {
-            width: 100%; background: #000; color: #00FF00;
-            border: 1px solid #00FF00; margin-bottom: 5px;
-        }
-
-        /* 4. 紅色禁止轉載文字 */
-        .no-copy {
-            color: #FF0000;
-            font-weight: bold;
-            font-size: 14px;
-            text-align: center;
-            margin: 20px 0;
+            width: 95%; background: #111; color: #FF69B4;
+            border: 1px solid #FF69B4; margin-bottom: 5px; padding: 5px;
         }
 
         /* MIDI 控制按鈕 */
-        #music-control {
+        #music-btn {
             position: fixed; bottom: 10px; right: 10px;
-            background: #FF69B4; color: white; padding: 5px;
-            font-size: 12px; border: 2px outset #fff; cursor: pointer;
+            background: #FFFF00; color: #000; padding: 5px;
+            font-size: 12px; border: 2px outset #fff; cursor: pointer; z-index: 10000;
         }
 
         /* 朋友 Banner */
         .friend-banner {
-            border: 1px solid #fff;
+            border: 2px solid #00FFFF;
             padding: 5px;
-            background: linear-gradient(to bottom, #444, #000);
+            background: #000;
             text-decoration: none;
-            display: inline-block;
-            margin-top: 10px;
+            display: block;
+            margin-top: 15px;
         }
+
+        .blink { animation: blinker 0.6s linear infinite; }
+        @keyframes blinker { 50% { opacity: 0; } }
+
+        .falling-item {
+            position: fixed; top: -50px; z-index: 9999;
+            pointer-events: none; animation: fall linear forwards;
+        }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
     </style>
 </head>
 <body>
 
-<div class="pink-banner">
-    💖 歡迎光臨！個人佳牌冰箱布丁の迷宮 💖
-</div>
+    <div id="music-btn" onclick="playMidi()">🎵 BGM: OFF (Click to Play)</div>
+    <audio id="bgm" src="S2_midi.mid" loop></audio>
 
-<div id="music-control" onclick="playMidi()">🎵 點我播放背景音樂 (BGM ON)</div>
-<script>
-    function playMidi() {
-        // 現代瀏覽器不支援直接播放 .mid，這是一個替代提示
-        // 建議將 .mid 轉為 .mp3 或使用特定 Library
-        // 這裡我們模擬播放，請確認根目錄有 S2_midi.mid
-        const audio = new Audio('S2_midi.mid');
-        audio.loop = true;
-        audio.play().catch(e => alert("請點擊頁面任何地方以啟用音樂！"));
-        document.getElementById('music-control').innerText = "🎶 BGM PLAYING...";
-    }
-</script>
+    <script>
+        function playMidi() {
+            const audio = document.getElementById('bgm');
+            if (audio.paused) {
+                audio.play();
+                document.getElementById('music-btn').innerText = "🎶 BGM: ON (S2_midi)";
+                document.getElementById('music-btn').style.background = "#FF69B4";
+            } else {
+                audio.pause();
+                document.getElementById('music-btn').innerText = "🎵 BGM: OFF";
+                document.getElementById('music-btn').style.background = "#FFFF00";
+            }
+        }
 
-<div class="wrapper">
-    <div class="sidebar">
-        <center>
-            <img src="https://blob.gifcities.org/gifcities/AXJLC6JI7OLYN7FPCN2NTWCRXJLPK73F.gif"><br>
-            <span style="font-size:12px;">(人•ᴗ•♡) 你好！</span>
-        </center>
-        
-        <div style="border:1px solid #00FF00; padding:5px; margin-top:10px;">
-            <p>➪ <a href="https://www.youtube.com/@goyanpip">My YouTube</a></p>
-            <p>➪ <a href="https://goyanpip.github.io/my-timer/">加班台</a></p>
-        </div>
+        // 飄落特效
+        const items = ['🥭', '💦', '💧', '✨', '🍦'];
+        setInterval(() => {
+            const el = document.createElement('div');
+            el.innerText = items[Math.floor(Math.random() * items.length)];
+            el.className = 'falling-item';
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            el.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 5000);
+        }, 300);
 
-        <p style="font-size:12px; margin-top:20px;">✧ 友情連結 ✧</p>
-        <a href="https://github.com/bobo0909808675-byte" target="_blank" class="friend-banner">
-            <span style="color:#fff; font-size:10px;">BOBO'S GITHUB</span><br>
-            <marquee scrollamount="2" style="color:#00FFFF; font-size:10px;">Visit my friend!</marquee>
-        </a>
-    </div>
-
-    <div class="main-content">
-        <p>歡迎來到我的秘密基地 (๑˃ᴗ˂)ﻭ</p>
-        <p>這裡只有最狂的食譜... ✌︎('ω')✌︎</p>
-
-        <div style="background: #111; padding: 10px; border: 1px solid #FF00FF;">
-             [這裡放之前的食譜內容，節省空間略過...]
-        </div>
-
-        <div class="no-copy">
-            ※ 無断転載禁止 (禁止隨意轉載) m(_ _)m ※
-        </div>
-
-        <div class="bbs-section">
-            <h3 style="margin:0; font-size:16px;">💬 訪客留言板 (BBS)</h3>
-            <p style="font-size:12px;">歡迎留下你的足跡... (´｡• ᵕ •｡`) ♡</p>
-            <input type="text" class="bbs-input" placeholder="名字/Name">
-            <textarea class="bbs-input" rows="3" placeholder="留言內容/Comment"></textarea>
-            <button style="width:100%; cursor:help;" onclick="alert('留言功能建設中！(っ˘ω˘ς )')">送信 (Send)</button>
-            
-            <div style="margin-top:10px; border-top:1px dotted #555; padding-top:5px; font-size:12px;">
-                <b>管理員：</b> 歡迎大家多來踩踩！ <small>2026/04/07</small>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    // 彩虹滑鼠
-    window.addEventListener("load", () => {
-        new cursoreffects.rainbowCursor({
-            length: 15, colors: ["#FF00FF", "#00FFFF", "#FFFF00"], size: 4
+        window.addEventListener("load", () => {
+            new cursoreffects.rainbowCursor({
+                length: 10, colors: ["#FF00FF", "#00FFFF", "#FFFF00"], size: 4
+            });
         });
-    });
-</script>
+    </script>
 
+    <div class="pink-banner">
+        (✿ ♡‿♡) 個人佳牌冰箱布丁の迷宮首頁 (｡♥‿♥｡)
+    </div>
+
+    <div class="marquee-header">
+        <marquee scrollamount="10">
+            ★ 最新消息：OMG湯改良版研發中 ★ 歡迎光臨本站 ★ 嚴禁無端轉載 ★ 訪客留言板正式開放 ★ 
+        </marquee>
+    </div>
+
+    <div class="wrapper">
+        <div class="sidebar">
+            <h3 style="color:#FFFF00; background:#FF0000; font-size: 14px;">MENU</h3>
+            <img src="https://blob.gifcities.org/gifcities/AXJLC6JI7OLYN7FPCN2NTWCRXJLPK73F.gif">
+            
+            <div class="link-box">
+                <span style="color: #FF99CC;">▼ 連結地圖 ▼</span><br>
+                ・<a href="https://www.youtube.com/@goyanpip" target="_blank">YouTube 頻道</a><br>
+                ・<a href="https://goyanpip.github.io/my-timer/" target="_blank">加班台(Timer)</a><br>
+                ・<a href="#">關於站長</a>
+            </div>
+
+            <p class="blink" style="color:#fff; font-size:12px;">!! Hot !!</p>
+            <img src="https://blob.gifcities.org/gifcities/6G5YQUHZRCKNZOPJF334IGEHIHEQGAPK.gif">
+            
+            <a href="https://github.com/bobo0909808675-byte" target="_blank" class="friend-banner">
+                <span style="color:#FF69B4; font-size:10px;">FRIEND LINK</span><br>
+                <span style="color:#fff; font-size:11px;">BOBO'S GitHub</span><br>
+                <marquee behavior="alternate" scrollamount="1" style="font-size:9px; color:#00FF00;">Welcome!</marquee>
+            </a>
+
+            <p style="font-size:11px; color:#00FFFF; margin-top:10px;">累計訪客：<br><span style="background:#fff; color:#000;">0084329</span></p>
+            <hr color="#FF00FF">
+            <img src="https://blob.gifcities.org/gifcities/CJY5EBLJIWYATXSNVLH43WK5VSX52XD6.gif" width="100">
+        </div>
+
+        <div class="main-content">
+            <p style="color:#FFFF00; font-size: 14px;">(๑˃ᴗ˂)ﻭ 歡迎來到這裡是混沌食譜的發源地！</p>
+            
+            <div class="no-copy">
+                ※ 無断転載禁止 (禁止隨意轉載) m(_ _)m ※
+            </div>
+
+            <hr color="#00FF00">
+
+            <div class="recipe-block">
+                <h2>🥣 1. OMG Soup (喔買尬驚魂湯)</h2>
+                <img src="https://blob.gifcities.org/gifcities/Q7TGTPHFBDAGJE6NUCLX3Q3B36DAE5RU.gif" width="80">
+                <p>這道湯的精髓在於「驚嚇」。如果你打開冰箱時沒慘叫，那就失敗了！</p>
+                <p><font color="#FF99CC">【材料】</font>番茄汁、味噌湯、薄荷巧克力(靈魂!)、冰箱驚喜。</p>
+                <p><font color="#FF99CC">【作法】</font>大火亂煮直到冒紫色泡泡，閉眼投料大喊 OMG！</p>
+            </div>
+
+            <div class="recipe-block">
+                <h2>🍰 2. 小潘偉蕙跳水蛋糕</h2>
+                <img src="https://blob.gifcities.org/gifcities/T7OJPX4YKXMA7A4BADG4QYJTUANAFLUN.gif" width="80">
+                <p>重力實驗開始！將蛋糕從三層樓高跳入阿華田優酪乳池中 (´｡• ᵕ •｡`) ♡</p>
+            </div>
+
+            <div class="recipe-block">
+                <h2>🌯 3. 冰箱雞蛋毛炒餅</h2>
+                <img src="https://blob.gifcities.org/gifcities/GL32P7WLT7QZBZ6PIK7CZOY2HMGOBNEX.gif" width="80">
+                <p>利用放了三個月的肉鬆進行「植毛」。淋上東泉辣椒醬是常識！</p>
+            </div>
+
+            <div class="recipe-block">
+                <h2>🍦 4. 果仁冰箱布丁 (招牌)</h2>
+                <img src="https://blob.gifcities.org/gifcities/QQVZHWKDOMYTJF5LT3DDYSK5XCEHQ7CZ.gif" width="80">
+                <p>這不是甜點，是預言。吸滿了冰箱味道的極致冰淇淋混沌狀態。</p>
+            </div>
+
+            <div class="bbs-section">
+                <h3 style="color:#FF69B4; border-bottom:1px solid #FF69B4; margin-bottom:10px;">💬 訪客留言板 (Guestbook)</h3>
+                <p style="font-size:12px; color:#fff;">(っ˘ω˘ς ) 留下你的感想吧！</p>
+                <input type="text" class="bbs-input" placeholder="Name (お名前)">
+                <textarea class="bbs-input" rows="3" placeholder="Comment (コメント)"></textarea>
+                <button style="width:100%; background:#FF69B4; color:#fff; border:none; padding:5px; cursor:pointer;" onclick="alert('送信成功！(這是模擬效果，目前尚未連動資料庫)')">送信する</button>
+                
+                <div style="margin-top:10px; font-size:11px; color:#888; border-top:1px dashed #444;">
+                    1. 站長：歡迎來到 2026 的 Y2K 基地！ (2026/04/07)
+                </div>
+            </div>
+
+            <div style="text-align:center; margin-top:20px;">
+                <img src="https://blob.gifcities.org/gifcities/G2UQ43GLKGMYBC4TYHJQ2Y6WE7TERVMF.gif">
+                <p style="font-size:10px;">Best viewed in 800x600 resolution with IE 6.0</p>
+            </div>
+
+        </div>
+    </div>
 </body>
 </html>
