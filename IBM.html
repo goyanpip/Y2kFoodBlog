@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>如果 Microsoft 從未存在過... | 復古極客部落格</title>
+<style>
+    /* 90年代經典樣式設定 */
+    body {
+        background-color: #000000;
+        background-image: url('https://www.transparenttextures.com/patterns/stardust.png'); /* 復古星空背景 */
+        color: #00FF00; /* 終端機經典綠色 */
+        font-family: "Times New Roman", Times, serif; /* 90年代預設字體 */
+        margin: 0;
+        padding: 20px;
+    }
+    .container {
+        width: 80%;
+        margin: 0 auto;
+        background-color: #111111;
+        border: 5px ridge #888888; /* 經典立體邊框 */
+        padding: 30px;
+    }
+    h1 {
+        color: #FF00FF; /* 霓虹洋紅色 */
+        text-align: center;
+        text-decoration: underline;
+    }
+    h2 {
+        color: #FFFF00; /* 亮黃色 */
+        border-bottom: 2px dashed #00FF00;
+        padding-bottom: 5px;
+    }
+    p {
+        line-height: 1.6;
+        font-size: 18px;
+    }
+    a {
+        color: #00FFFF; /* 青色連結 */
+        text-decoration: none;
+    }
+    a:hover {
+        color: #FF0000;
+        text-decoration: underline;
+    }
+    hr {
+        border: 0;
+        height: 2px;
+        background-image: linear-gradient(to right, rgba(0, 255, 0, 0), rgba(0, 255, 0, 0.75), rgba(0, 255, 0, 0));
+        margin: 30px 0;
+    }
+    .center-img {
+        display: block;
+        margin: 20px auto;
+        border: 2px solid #00FF00;
+    }
+    .footer {
+        text-align: center;
+        font-family: "Courier New", Courier, monospace;
+        color: #AAAAAA;
+        margin-top: 40px;
+    }
+    .badges img {
+        border: 0;
+        margin: 0 5px;
+    }
+</style>
+<script src="https://unpkg.com/cursor-effects@latest/dist/browser.js"></script>
+
+<script>
+    window.addEventListener("load", (event) => {
+        new cursoreffects.bubbleCursor({
+            fillColor: "#f771b4",   /* 粉紅泡泡填充 */
+            strokeColor: "#e6f1f7"  /* 淺藍色邊框 */
+        });
+    });
+</script>
+</head>
+
+<body>
+
+<div class="container">
+    <marquee scrollamount="6" bgcolor="#000080" style="color: #FFFFFF; font-size: 20px; padding: 5px; border: 2px solid #FFFFFF;">
+        <b>!!! 歡迎來到我的個人主頁 !!! Welcome to my Homepage !!! 最佳瀏覽器：Netscape Navigator 3.0 !!!</b>
+    </marquee>
+
+    <h1>⭐ 如果 Microsoft 從未存在過 ⭐</h1>
+    <p align="center"><i>這是一個非常有趣且極具深度的反事實推演。</i></p>
+
+    <img src="https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=800&auto=format&fit=crop" alt="Retro Motherboard" class="center-img" width="500">
+
+    <p>你已經提到了許多重點，我在此嘗試從底層協定、硬體標準、驅動模型、軟體生態一路談起，盡量深入到協定與專有名詞層面。</p>
+
+    <h2>一、底層韌體與啟動協定：BIOS → UEFI → Secure Boot</h2>
+    <p>PC BIOS 本身是 IBM 的產物，並非 Microsoft 發明，但 Microsoft 對其後續的演進影響極大。首先談 ACPI（Advanced Configuration and Power Interface）——這個規範是 Intel、Microsoft 與 Toshiba 三家公司在 1996 年聯合制定的，用來取代舊有的 APM（Advanced Power Management）。ACPI 控制著整台電腦的電源管理、裝置枚舉、熱管理、睡眠狀態（S0–S5）、CPU P-state/C-state 等等。</p>
+    <p>如果沒有 Microsoft，ACPI 很大機率不會以現在的形式存在。可能會出現的替代情景是：APM 繼續延長壽命，或者 Intel 與其他 Unix 廠商（Sun、IBM、HP）合作制定一套更加貼近 Open Firmware（IEEE 1275）風格的電源管理標準。Open Firmware 就是當年 Sun 的 SPARC 工作站與 Apple PowerPC Mac 用的韌體標準，比傳統 BIOS 靈活許多，支援 Forth 語言寫的 device tree。</p>
+    <p>至於 UEFI（Unified Extensible Firmware Interface），雖然最初是 Intel 推動的（由 Itanium 的 EFI 演變而來），但 UEFI Forum 中 Microsoft 是核心成員，而且最關鍵的是 UEFI Secure Boot——現在全球幾乎所有出廠的 x86 PC，Secure Boot 的信任根（root of trust）都是靠 Microsoft 的 KEK（Key Exchange Key）和 db 簽名資料庫。也就是說，Microsoft 實際上是整個 PC 啟動信任鏈的 de facto Certificate Authority。</p>
+    <p>如果沒有 Microsoft，Secure Boot 的信任錨點會完全不同——可能由 Intel 或一個獨立的行業聯盟管理，又或者 coreboot/LinuxBoot 這類開源韌體方案會更早普及，甚至 Open Firmware 會直接成為 PC 標準韌體，而不是只有 Sun 和舊 Apple 在用。</p>
+
+    <h2>二、硬體標準與協定：USB、Plug and Play、Driver Model</h2>
+    <p>USB 本身是 1994 年由 Intel、Compaq、Microsoft、NEC、IBM、DEC、Nortel 七家公司組成的 USB-IF 推動的。Microsoft 不是 USB 物理層或協定層的主要設計者（那主要是 Intel），但 USB 裝置在 host OS 上的 driver stack 與 class driver model 就與 Microsoft 深度綁定。Windows 的 WDM（Windows Driver Model）與之後的 WDF（Windows Driver Framework），包含 KMDF 與 UMDF，是整個 PC 外設生態的基石。</p>
+    <p>硬體廠商推出一款新的 USB 裝置，第一件事就是寫 Windows driver。如果沒有 Microsoft，這個 driver model 不會存在，取而代之的可能是 Linux 的 kernel module 模型成為業界標準，又或者出現一套類似 POSIX 但更完整的 standardized driver interface。硬體廠商會被迫將 driver 上游化（upstream）到 Linux kernel tree，這反而會讓硬體支援更加統一與開放——諷刺地，這正正是現在 Linux 社群夢寐以求的事。</p>
+    <p>Plug and Play（PnP）也是 Microsoft 和 Intel 在 1990 年代中期力推的。以前的 ISA 卡要手動設定 IRQ、DMA、I/O port，極其痛苦。PnP BIOS 與 PnP OS 的配合是 Microsoft 推動的。沒有 Microsoft 的話，自動硬體配置可能會遲幾年才普及，又或者走 Sun/HP 的 auto-configuration 路線，透過 Open Firmware 的 device tree 來實作。</p>
+    <p>至於 GPU driver model，Microsoft 的 WDDM 定義了 GPU 如何與 OS 互動、如何做 GPU scheduling、memory management、以及與 desktop compositor（DWM）的配合。沒有 WDDM，GPU vendor 就會圍繞 DRI/DRM 這套 Linux 核心的圖形驅動框架來開發，Mesa 3D 會更早成為業界標準的 userspace graphics stack。</p>
+
+    <h2>三、執行檔格式與系統 API</h2>
+    <p>沒有 Microsoft 就沒有 Win32 API，這個影響是天翻地覆的。Win32 API 是整個 Windows 應用程式生態的基礎——CreateProcess、CreateFile、HWND、WndProc、GDI、COM、DCOM、OLE……全部都是 Microsoft 獨有的。如果這些全部不存在，POSIX API 就會成為唯一的主流系統呼叫標準。所有應用程式都會用 fork/exec、open/read/write/close、X11 或者之後的 Wayland 來做 UI。</p>
+    <p>執行檔格式方面，沒有 Microsoft 就沒有 PE（Portable Executable）格式與 COFF 的 Windows 變種。整個業界會統一使用 ELF（Executable and Linkable Format）——現在已經是 Linux、BSD、Solaris、PlayStation 等平台的標準。動態連結會用 ELF shared objects（.so）而不是 DLL，符號解析會用 ELF 的 symbol table 而不是 PE 的 export table。連 ABI 也會更統一，沒有 Microsoft 的話，System V ABI 就會是唯一標準，這對 compiler 和 FFI 都會簡單許多。</p>
+
+    <h2>四、檔案系統與網路協定</h2>
+    <p>NTFS 不會存在。PC 的主流檔案系統可能會是 ext 系列、XFS（SGI 開發）、ZFS（Sun 開發），又或者是 ReiserFS/Btrfs。FAT32 和 exFAT 都是 Microsoft 的——特別是 exFAT，現在 SD 卡大於 32GB 就強制使用 exFAT。如果沒有 Microsoft 的 FAT 專利牆，便攜式儲存媒介可能早早就統一使用一個開放的檔案系統，例如 UDF 或 ext4。</p>
+    <p>網路協定方面，最大的差別是沒有 SMB/CIFS。沒有 SMB 的話，NFS（Network File System）就會成為企業與消費者的主流檔案共享協定。另外 NetBIOS/NetBEUI 這些 Microsoft 早期的網路協定也不會出現，TCP/IP 可能會更早統一成為 PC 網路的唯一標準。</p>
+
+    <h2>五、企業 IT 生態：Active Directory、Exchange、COM/DCOM</h2>
+    <p>沒有 Active Directory，企業的身分驗證與目錄服務會由 Novell NDS 或開源的 OpenLDAP 主導。Kerberos 本身是 MIT 發明的，但 Microsoft 在 AD 中加入了許多專有擴展。沒有 Microsoft，Kerberos 會更純粹，互操作性會更好。</p>
+    <p>沒有 COM 就沒有 DCOM、OLE、ActiveX。CORBA 很大機率成為跨語言組件通訊的主流標準，或者 Sun 的 RMI/IIOP 與 JNDI 會在企業環境普及。沒有 Exchange Server，Lotus Notes/Domino 可能一直存活到現在，或是開源的 email server（Postfix + Dovecot）會更早成為企業級標準。</p>
+
+    <h2>六、程式語言與開發工具</h2>
+    <p>沒有 Microsoft 就沒有 Visual Basic——這個語言在 1990 年代將「普通人也可以寫程式」這個概念普及化。如果沒有 VB，Borland Delphi（Object Pascal）與 PowerBuilder 會成為 RAD 工具的霸主。</p>
+    <p>沒有 C# 與 .NET Framework，Java 的統治地位會更加穩固，或者 Python 會更早爆發。沒有 Visual Studio，IDE 市場會由 Borland 系列、Eclipse、NetBeans 與後來的 JetBrains IntelliJ 主導。另外，GitHub 現在是 Microsoft 旗下的。沒有 Microsoft 收購，GitHub 可能會獨立營運，Copilot 等 AI 功能的發展也會完全不同。</p>
+
+    <h2>七、圖形 API 與遊戲生態</h2>
+    <p>沒有 DirectX 就沒有 Direct3D，OpenGL 會一直是唯一的跨平台圖形 API。歷史上 OpenGL 的 ARB 發展緩慢，很大程度是因為有 Direct3D 做競爭。如果沒有 Direct3D，OpenGL 的演進路線可能會更慢，但 GPU vendor 會投入更多資源去最佳化它。Glide 可能會存活更久，形成 OpenGL vs Glide 的競爭格局。</p>
+    <p>遊戲主機市場就是 Sony PlayStation 與 Nintendo 的天下，可能 Sega 都會存活更久。PC gaming 方面，沒有 Windows 的壟斷，Steam on Linux 可能早就是主流。</p>
+
+    <h2>八、Wintel 聯盟瓦解與硬體架構影響</h2>
+    <p>所謂的 Wintel 聯盟是 1990–2010 年代 PC 市場的核心驅動力。如果沒有 Microsoft，Intel 仍然會存在，但 x86 的絕對統治地位可能會動搖。IBM 的 PowerPC 可能不會在 2006 年被 Apple 放棄。MIPS 與 SPARC 也可能在 desktop 市場佔一席之地。最極端的情景是：桌上型電腦市場出現類似 Unix workstation 時代的百花齊放——不同的 CPU 架構配不同的 Unix 變種，直到 Linux 統一軟體層。而 ARM 進入桌面市場可能會早好多年。</p>
+
+    <h2>九、Web 標準與瀏覽器</h2>
+    <p>沒有 IE（Internet Explorer）就沒有 Browser Wars，Netscape Navigator 不會被擠死。這個影響極其深遠——Netscape 可能會繼續發展，JavaScript 的演進路線會完全不同，Web 標準會更早統一。沒有 IE6 那十年的停滯期，CSS 與 DOM 標準的發展可能快五年以上。ActiveX 不會存在，Web 的安全性會好很多。</p>
+
+    <hr>
+
+    <h2>總結</h2>
+    <p>如果 Microsoft 從未存在，最核心的轉變是：整個 PC 生態會由「專有、二進位相容、單一廠商控制」的模式，轉向「開放標準、原始碼可攜、多廠商共治」的模式。POSIX 取代 Win32，ELF 取代 PE，NFS 取代 SMB，OpenGL/Vulkan 取代 DirectX，ext4/ZFS 取代 NTFS，CORBA/RMI 取代 COM/DCOM。</p>
+    <p>但也有一個反面要承認：Microsoft 在「將電腦帶入每一個普通人的家裡」這件事上的貢獻是無可取代的。沒有 Microsoft，PC 普及化可能會遲好幾年——因為 Unix 的學習曲線始終比 Windows 高，而 Apple 又一直走高價路線。最終電腦仍然會普及，但過程與時間表會截然不同。</p>
+
+    <div class="footer">
+        <center>
+            <p>You are visitor number:</p>
+            <div style="background-color: black; border: 2px inset #FFF; display: inline-block; padding: 2px; font-size: 24px; font-family: 'Courier New', monospace; letter-spacing: 5px;">
+                <span style="color: red;">0</span><span style="color: red;">0</span><span style="color: white;">1</span><span style="color: white;">9</span><span style="color: white;">9</span><span style="color: white;">5</span>
+            </div>
+        </center>
+        <br>
+        <div class="badges">
+            <img src="https://via.placeholder.com/88x31/000000/00FF00?text=Netscape+Now" alt="Netscape Now">
+            <img src="https://via.placeholder.com/88x31/000000/FFFF00?text=Valid+HTML+3.2" alt="Valid HTML 3.2">
+            <img src="https://via.placeholder.com/88x31/000000/00FFFF?text=No+IE+Allowed" alt="No IE">
+        </div>
+        <p>© 1996 Alternate History Tech Blog. Best viewed in 800x600 resolution.</p>
+    </div>
+
+</div>
+
+</body>
+</html>
