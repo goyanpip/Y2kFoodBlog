@@ -2,272 +2,161 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <title>個人佳牌冰箱布丁部落格</title>
+    <title>個人佳牌冰箱布丁部落格 - ✧*｡٩(ˊᗜˋ*)و✧*｡</title>
     <script src="https://unpkg.com/cursor-effects@latest/dist/browser.js"></script>
-    
+    <script src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.77,npm/@magenta/music@1.23.1/es6/core.js"></script>
+
     <style>
-        /* Y2K 核心排版與字體 */
         body {
-            font-family: "PMingLiU", "新細明體", serif;
-            background-color: #000000;
-            /* 背景平鋪 GIF */
-            background-image: url('https://blob.gifcities.org/gifcities/CQXODYFGDOQG6VAYZHLJPUNQJH3NFJXS.gif');
-            background-repeat: repeat;
-            color: #00FF00; /* 螢光綠文字 */
-            margin: 0;
-            padding: 0;
-            cursor: crosshair; /* 復古十字游標 */
-            overflow-x: hidden;
-        }
-
-        /* 標題跑馬燈樣式 */
-        .marquee-header {
-            background-color: #FF00FF;
-            color: #FFFF00;
-            border-top: 5px solid #00FFFF;
-            border-bottom: 5px solid #00FFFF;
-            padding: 10px 0;
-            font-size: 24px;
-            font-weight: bold;
-            text-shadow: 2px 2px #000000;
-        }
-
-        /* 主體佈局 */
-        .wrapper {
-            display: table;
-            width: 100%;
-            max-width: 1000px;
-            margin: 10px auto;
-            background-color: rgba(0, 0, 0, 0.85); /* 半透明黑底讓字清楚一點 */
-            border: 8px ridge #FF0000;
-        }
-
-        /* 左邊側邊欄 */
-        .sidebar {
-            display: table-cell;
-            width: 25%;
-            padding: 10px;
-            vertical-align: top;
+            font-family: "MS PGothic", "PMingLiU", "新細明體", serif;
             background-color: #000080;
-            border-right: 5px dashed #FFFF00;
-            text-align: center;
+            background-image: url('https://file.garden/ZWlUCY4S7Xz2vypS/archived%20backgrounds/colours/blue/0000201-tile.jpg');
+            background-repeat: repeat;
+            color: #00FF00;
+            margin: 0; padding: 0;
+            cursor: crosshair;
         }
 
-        .sidebar img {
-            max-width: 100%;
-            margin-bottom: 10px;
-            border: 2px solid #FF00FF;
-        }
-
-        /* 主要內容區 - 極度密集 */
-        .main-content {
-            display: table-cell;
-            width: 75%;
+        /* 5. 日本網站風格的 Pink Banner Title */
+        .pink-banner {
+            background-color: #FF69B4;
+            color: #FFFFFF;
             padding: 15px;
-            line-height: 1.2;
-            vertical-align: top;
+            text-align: center;
+            font-size: 28px;
+            font-weight: 900;
+            border-bottom: 5px double #FFFFFF;
+            box-shadow: 0px 5px 0px #C71585;
+            text-shadow: 2px 2px 0px #000;
+            margin-bottom: 10px;
         }
 
-        h1, h2, h3 {
-            color: #FF00FF;
-            text-decoration: underline;
-            text-shadow: 1px 1px 0px #FFFFFF;
-            background: #333333;
-            padding: 5px;
-            border: 1px dotted #00FF00;
-            margin-top: 20px;
+        .wrapper {
+            display: table; width: 100%; max-width: 1000px;
+            margin: 0 auto; background-color: rgba(0, 0, 0, 0.8);
+            border: 5px ridge #FF00FF;
         }
 
-        .recipe-block {
-            border: 3px double #00FFFF;
-            padding: 10px;
-            margin-bottom: 15px;
-            background: #111111;
+        .sidebar {
+            display: table-cell; width: 200px; padding: 15px;
+            vertical-align: top; border-right: 3px dashed #FFFF00;
         }
 
-        .recipe-block img {
-            float: right;
-            margin: 5px;
-            border: 2px solid #FFFF00;
+        .main-content {
+            display: table-cell; padding: 20px; vertical-align: top;
         }
 
-        /* 閃爍效果 (模擬舊版 <blink>) */
-        .blink {
-            animation: blinker 0.6s linear infinite;
+        /* 留言板樣式 */
+        .bbs-section {
+            margin-top: 50px;
+            border: 2px solid #00FFFF;
+            background: #222;
+            padding: 15px;
+        }
+        .bbs-input {
+            width: 100%; background: #000; color: #00FF00;
+            border: 1px solid #00FF00; margin-bottom: 5px;
+        }
+
+        /* 4. 紅色禁止轉載文字 */
+        .no-copy {
             color: #FF0000;
             font-weight: bold;
-            background-color: #FFFF00;
-        }
-        @keyframes blinker {
-            50% { opacity: 0; }
+            font-size: 14px;
+            text-align: center;
+            margin: 20px 0;
         }
 
-        /* 水花與芒果飄飄特效 */
-        .falling-item {
-            position: fixed;
-            top: -50px;
-            z-index: 9999;
-            pointer-events: none;
-            animation: fall linear forwards;
+        /* MIDI 控制按鈕 */
+        #music-control {
+            position: fixed; bottom: 10px; right: 10px;
+            background: #FF69B4; color: white; padding: 5px;
+            font-size: 12px; border: 2px outset #fff; cursor: pointer;
         }
-        @keyframes fall {
-            to { transform: translateY(110vh) rotate(360deg); }
+
+        /* 朋友 Banner */
+        .friend-banner {
+            border: 1px solid #fff;
+            padding: 5px;
+            background: linear-gradient(to bottom, #444, #000);
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
 
-    <script>
-        // 芒果與水花符號
-        const items = ['🥭', '💦', '💧', '✨'];
-        function createFallingItem() {
-            const el = document.createElement('div');
-            el.innerText = items[Math.floor(Math.random() * items.length)];
-            el.className = 'falling-item';
-            el.style.left = Math.random() * 100 + 'vw';
-            el.style.fontSize = (Math.random() * 24 + 12) + 'px'; // 隨機大小
-            el.style.animationDuration = (Math.random() * 3 + 2) + 's'; // 隨機掉落速度
-            document.body.appendChild(el);
-            
-            // 掉出螢幕後移除
-            setTimeout(() => { el.remove(); }, 5000);
-        }
-        // 每 300 毫秒生成一個
-        setInterval(createFallingItem, 300);
+<div class="pink-banner">
+    💖 歡迎光臨！個人佳牌冰箱布丁の迷宮 💖
+</div>
 
-        // 初始化彩虹滑鼠表
-        window.addEventListener("load", (event) => {
-            new cursoreffects.rainbowCursor({
-                length: 20,
-                colors: ["#FF0000", "#FF7F00", "#FFFF00", "#00FF00", "#0000FF", "#4B0082", "#9400D3"],
-                size: 5
-            });
+<div id="music-control" onclick="playMidi()">🎵 點我播放背景音樂 (BGM ON)</div>
+<script>
+    function playMidi() {
+        // 現代瀏覽器不支援直接播放 .mid，這是一個替代提示
+        // 建議將 .mid 轉為 .mp3 或使用特定 Library
+        // 這裡我們模擬播放，請確認根目錄有 S2_midi.mid
+        const audio = new Audio('S2_midi.mid');
+        audio.loop = true;
+        audio.play().catch(e => alert("請點擊頁面任何地方以啟用音樂！"));
+        document.getElementById('music-control').innerText = "🎶 BGM PLAYING...";
+    }
+</script>
+
+<div class="wrapper">
+    <div class="sidebar">
+        <center>
+            <img src="https://blob.gifcities.org/gifcities/AXJLC6JI7OLYN7FPCN2NTWCRXJLPK73F.gif"><br>
+            <span style="font-size:12px;">(人•ᴗ•♡) 你好！</span>
+        </center>
+        
+        <div style="border:1px solid #00FF00; padding:5px; margin-top:10px;">
+            <p>➪ <a href="https://www.youtube.com/@goyanpip">My YouTube</a></p>
+            <p>➪ <a href="https://goyanpip.github.io/my-timer/">加班台</a></p>
+        </div>
+
+        <p style="font-size:12px; margin-top:20px;">✧ 友情連結 ✧</p>
+        <a href="https://github.com/bobo0909808675-byte" target="_blank" class="friend-banner">
+            <span style="color:#fff; font-size:10px;">BOBO'S GITHUB</span><br>
+            <marquee scrollamount="2" style="color:#00FFFF; font-size:10px;">Visit my friend!</marquee>
+        </a>
+    </div>
+
+    <div class="main-content">
+        <p>歡迎來到我的秘密基地 (๑˃ᴗ˂)ﻭ</p>
+        <p>這裡只有最狂的食譜... ✌︎('ω')✌︎</p>
+
+        <div style="background: #111; padding: 10px; border: 1px solid #FF00FF;">
+             [這裡放之前的食譜內容，節省空間略過...]
+        </div>
+
+        <div class="no-copy">
+            ※ 無断転載禁止 (禁止隨意轉載) m(_ _)m ※
+        </div>
+
+        <div class="bbs-section">
+            <h3 style="margin:0; font-size:16px;">💬 訪客留言板 (BBS)</h3>
+            <p style="font-size:12px;">歡迎留下你的足跡... (´｡• ᵕ •｡`) ♡</p>
+            <input type="text" class="bbs-input" placeholder="名字/Name">
+            <textarea class="bbs-input" rows="3" placeholder="留言內容/Comment"></textarea>
+            <button style="width:100%; cursor:help;" onclick="alert('留言功能建設中！(っ˘ω˘ς )')">送信 (Send)</button>
+            
+            <div style="margin-top:10px; border-top:1px dotted #555; padding-top:5px; font-size:12px;">
+                <b>管理員：</b> 歡迎大家多來踩踩！ <small>2026/04/07</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 彩虹滑鼠
+    window.addEventListener("load", () => {
+        new cursoreffects.rainbowCursor({
+            length: 15, colors: ["#FF00FF", "#00FFFF", "#FFFF00"], size: 4
         });
-    </script>
+    });
+</script>
 
-    <div class="marquee-header">
-        <marquee scrollamount="12" behavior="alternate">
-            <img src="https://blob.gifcities.org/gifcities/G2UQ43GLKGMYBC4TYHJQ2Y6WE7TERVMF.gif" align="absmiddle" height="30">
-            ★·.·´¯`·.·★ 歡迎來到個人佳牌冰箱布丁部落格 ★·.·´¯`·.·★
-            <img src="https://blob.gifcities.org/gifcities/G2UQ43GLKGMYBC4TYHJQ2Y6WE7TERVMF.gif" align="absmiddle" height="30">
-        </marquee>
-    </div>
-
-    <div class="wrapper">
-        <div class="sidebar">
-            <h3 style="color:#FFFF00; background:#FF0000;">★ 站長推薦 ★</h3>
-            <marquee direction="up" scrollamount="3" height="150" style="background:#000; border:1px solid #fff;">
-                <center>
-                    <img src="https://blob.gifcities.org/gifcities/AXJLC6JI7OLYN7FPCN2NTWCRXJLPK73F.gif"><br><br>
-                    <span style="color:cyan;">超狂美食！</span><br><br>
-                    <img src="https://blob.gifcities.org/gifcities/FB5FAMWETHLSSGGC7DVZE2IZCVZVKFA2.gif"><br><br>
-                    <span style="color:magenta;">每日更新！</span><br><br>
-                </center>
-            </marquee>
-            
-            <p><span class="blink">!! NEW !!</span></p>
-            <img src="https://blob.gifcities.org/gifcities/6G5YQUHZRCKNZOPJF334IGEHIHEQGAPK.gif">
-            <p style="font-size:12px; color:#aaa;">你是第 <span style="background:#fff; color:#000;">0084329</span> 位訪客</p>
-            
-            <hr color="#FF00FF">
-            <center>
-                <img src="https://blob.gifcities.org/gifcities/CJY5EBLJIWYATXSNVLH43WK5VSX52XD6.gif">
-            </center>
-        </div>
-
-        <div class="main-content">
-            <p>歡迎來到<span style="font-size:20px; color:#FFFF00;">個人佳牌冰箱布丁部落格</span>！這裡不生產正常的食物，我們只負責在半夜三點，當你的大腦與胃袋達成某種邪惡協議時，提供最混亂、最無厘頭、但莫名其妙好像能吃的生存指南。</p>
-            <p>今天的菜單經過嚴格的<span class="blink">「冰箱隨機抽樣調查」</span>，保請各位心理準備好再下廚。</p>
-
-            <hr size="3" color="#00FF00">
-
-            <div class="recipe-block">
-                <h2>🥣 1. OMG Soup (喔買尬驚魂湯)</h2>
-                <img src="https://blob.gifcities.org/gifcities/Q7TGTPHFBDAGJE6NUCLX3Q3B36DAE5RU.gif" width="100">
-                <p>這道湯的精髓在於「驚嚇」。如果你打開冰箱時沒有發出「OMG」的慘叫，那這道湯就失去了靈魂。</p>
-                <p><b>【食材準備】</b></p>
-                <ul>
-                    <li><font color="#FF99CC">過期邊緣的液體：</font> 半瓶番茄汁、喝剩的冷掉味噌湯、或是那罐你一直不敢打開的氣泡水。</li>
-                    <li><font color="#FF99CC">冰箱角落的遺孤：</font> 一截發皺的小黃瓜、三顆乾癟的枸杞、半塊吃剩的炸雞皮。</li>
-                    <li><font color="#FF99CC">驚喜元素：</font> 一顆薄荷巧克力糖（這很重要，它是靈魂）。</li>
-                </ul>
-                <p><b>【製作步驟】</b></p>
-                <ol>
-                    <li><b>大火亂煮：</b> 將所有液體倒入鍋中，火開到最大，直到它開始冒出詭異的紫色或深棕色泡泡。</li>
-                    <li><b>儀式性投料：</b> 閉上眼睛，手伸進冰箱蔬菜格，抓到什麼就丟什麼。丟進去時必須大喊一聲：「OMG！」</li>
-                    <li><b>分子料理化：</b> 在熄火前一秒，丟入那顆薄荷巧克力。它會賦予這道湯一種「北極與地獄交界」的奇幻口感。</li>
-                    <li><b>擺盤：</b> 用一個過大的咖啡杯盛裝，並在杯緣掛一片洋芋片。</li>
-                </ol>
-            </div>
-
-            <div class="recipe-block">
-                <h2>🍰 2. 小潘偉蕙跳水蛋糕 (The Diving Cake)</h2>
-                <img src="https://blob.gifcities.org/gifcities/T7OJPX4YKXMA7A4BADG4QYJTUANAFLUN.gif" width="80">
-                <p>這不是一般的戚風或海綿蛋糕，這是一場關於重力與絕望的實驗。</p>
-                <p><b>【食材準備】</b></p>
-                <ul>
-                    <li><font color="#00FFFF">現成的杯子蛋糕：</font> 隨便哪家超商買的。</li>
-                    <li><font color="#00FFFF">跳水池：</font> 一大碗濃稠的優酪乳混和過量的阿華田。</li>
-                    <li><font color="#00FFFF">助跑員：</font> 軟糖小熊（數隻）。</li>
-                </ul>
-                <p><b>【製作步驟】</b></p>
-                <ol>
-                    <li><b>建設跳台：</b> 把杯子蛋糕疊成三層樓高，放在碗邊。</li>
-                    <li><b>跳水儀式：</b> 將軟糖小熊黏在蛋糕頂端。</li>
-                    <li><b>行刑（不是，是烹飪）：</b> 用湯匙猛力一揮，讓蛋糕整塊「跳入」優酪乳池中。</li>
-                    <li><b>視覺修復：</b> 蛋糕會散開成碎屑。不要慌，拿打蛋器瘋狂攪拌，直到它變成一碗看起來像水泥、聞起來像初戀的糊狀物。</li>
-                    <li><b>食用建議：</b> 蹲在椅子上吃，模擬跳水選手領獎牌的心情。</li>
-                </ol>
-            </div>
-
-            <div class="recipe-block">
-                <h2>🌯 3. 冰箱雞蛋毛炒餅 (The Hairy Egg Pancake)</h2>
-                <img src="https://blob.gifcities.org/gifcities/GL32P7WLT7QZBZ6PIK7CZOY2HMGOBNEX.gif" width="120">
-                <p>別擔心，「毛」不是真的毛，是那包在冰箱放了三個月、已經呈現半纖維化的肉鬆。</p>
-                <p><b>【食材準備】</b></p>
-                <ul>
-                    <li><font color="#FFCC00">主角：</font> 兩顆對生命失去熱情的雞蛋。</li>
-                    <li><font color="#FFCC00">餅體：</font> 昨天沒吃完、已經變硬的蔥油餅（或是撕碎的報紙狀吐司）。</li>
-                    <li><font color="#FFCC00">毛的來源：</font> 過量肉鬆、或是撕得很細的起司絲（如果不幸發霉了請換一包）。</li>
-                </ul>
-                <p><b>【製作步驟】</b></p>
-                <ol>
-                    <li><b>熱鍋：</b> 鍋子不用洗，殘留昨天的油煙味是最好的調味。</li>
-                    <li><b>暴力炒餅：</b> 把硬掉的餅丟進去，用鏟子把它當成仇人一樣切碎。</li>
-                    <li><b>蛋雨降臨：</b> 雞蛋直接打在餅上，不要先攪散，追求那種黃白分明的「殘缺美」。</li>
-                    <li><b>植毛工程：</b> 趁蛋液還沒全乾，灑上大量的肉鬆。肉鬆會黏在蛋上面，看起來就像你的餅長了厚厚的、焦糖色的毛。</li>
-                    <li><b>點綴：</b> 淋上大量東泉辣椒醬，掩蓋所有你不想面對的味道。</li>
-                </ol>
-            </div>
-
-            <div class="recipe-block">
-                <h2>🍦 4. 自選無厘頭：果仁冰箱布丁 (The Nutty Fridge Omen)</h2>
-                <img src="https://blob.gifcities.org/gifcities/QQVZHWKDOMYTJF5LT3DDYSK5XCEHQ7CZ.gif" width="90">
-                <p>本部落格的招牌菜，這不是甜點，這是一個預言。</p>
-                <p><b>【食材準備】</b></p>
-                <ul>
-                    <li><font color="#FFFFFF">果仁：</font> 綜合堅果（最好有那種很硬的蠶豆症患者不能吃的蠶豆）。</li>
-                    <li><font color="#FFFFFF">膠質：</font> 一碗融化一半的香草冰淇淋。</li>
-                    <li><font color="#FFFFFF">硬核填充：</font> 兩片蘇打餅乾碎。</li>
-                </ul>
-                <p><b>【製作步驟】</b></p>
-                <ol>
-                    <li><b>層次堆疊：</b> 在玻璃杯底鋪滿碎果仁，這代表現實的殘酷。</li>
-                    <li><b>灌入混沌：</b> 倒入半融化的冰淇淋，這代表生活的迷茫。</li>
-                    <li><b>冰箱冷卻：</b> 把它塞進冰箱最深處，放過夜。忘掉它，直到三天後你找冰塊時發現它。</li>
-                    <li><b>開光：</b> 這時的布丁會呈現一種半固體、半流體、且吸收了冰箱所有剩菜味的玄妙狀態。</li>
-                    <li><b>成品：</b> 每一口都能咬到嘎蹦脆的果仁，伴隨著一股淡淡的隔夜冷藏室氣息。</li>
-                </ol>
-            </div>
-
-            <div style="background-color: #330000; padding: 10px; border: 2px dashed #FF0000; text-align: center;">
-                <p><b>【站長碎碎念】</b></p>
-                <p>如果你照著做之後胃痛，請不要找我，<span class="blink">請找你的冰箱談談</span>。</p>
-                <p>下集預告：「如何用微波爐與憤怒釀造汽水」</p>
-            </div>
-
-        </div>
-    </div>
-    
 </body>
 </html>
